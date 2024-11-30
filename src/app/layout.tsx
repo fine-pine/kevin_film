@@ -30,7 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="antialiased flex flex-col gap-16 items-center m-auto max-w-5xl min-h-screen">
+          <main className="antialiased flex flex-col gap-16 items-center m-auto max-w-[1200px] min-h-screen">
             <Header />
             {children}
             <Footer />

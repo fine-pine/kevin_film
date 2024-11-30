@@ -13,7 +13,7 @@ export default async function Page() {
   }
 
   return (
-    <section className="grid grid-cols-2 gap-6">
+    <section>
       <FormWithDialog />
     </section>
   );

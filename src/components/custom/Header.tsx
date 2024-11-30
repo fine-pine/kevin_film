@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export default function Component() {
   return (
-    <header className="w-full pt-16 flex justify-between">
+    <header className="w-full pt-16 flex justify-between items-end">
       <Link className="text-2xl font-medium" href="/">
         Kevin Film
       </Link>
       <nav>
-        <ul className="flex gap-8 text-base">
+        <ul className="flex gap-8">
           {ROUTER.map((route) => (
             <li>
               <Link key={route.title} href={route.path}>

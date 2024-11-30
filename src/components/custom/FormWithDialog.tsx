@@ -6,6 +6,7 @@ import { Label } from "@/src/components/ui/label";
 import { Textarea } from "@/src/components/ui/textarea";
 import { FormEventHandler, MouseEventHandler, useState } from "react";
 import { useForm } from "react-hook-form";
+import { SubmitButton } from "../submit-button";
 
 export default function Component() {
   const [showDialog, setShowDialog] = useState(false);
@@ -51,12 +52,15 @@ export default function Component() {
 
   return (
     <>
-      <form className="flex flex-col" onSubmit={handleFormSubmit}>
+      <form
+        className="flex-1 flex flex-col min-w-64"
+        onSubmit={handleFormSubmit}
+      >
         {
           // TODO: add attributes
         }
-        <div>
-          <Label>Upload Image:</Label>
+        <div className="flex flex-col gap-2 [&>p]:mb-3 mt-8">
+          <Label>Image</Label>
           <Input
             type="file"
             accept="image/*"
@@ -64,26 +68,22 @@ export default function Component() {
               required: "Image is required.",
             })}
           />
-          {errors.image && <p>{errors.image.message}</p>}
-        </div>
-        <div>
-          <Label>Description:</Label>
+          {errors.image && (
+            <p className="text-xs text-destructive">{errors.image.message}</p>
+          )}
+          <Label>Description</Label>
           <Textarea
             {...register("description", {
               required: "Description is required.",
-              minLength: {
-                value: 10,
-                message: "Description must be at least 10 characters.",
-              },
-              maxLength: {
-                value: 500,
-                message: "Description must not exceed 500 characters.",
-              },
             })}
           ></Textarea>
-          {errors.description && <p>{errors.description.message}</p>}
+          {errors.description && (
+            <p className="text-xs text-destructive">
+              {errors.description.message}
+            </p>
+          )}
+          <SubmitButton pendingText="Uploading...">Upload</SubmitButton>
         </div>
-        <Button type="submit">upload</Button>
       </form>
 
       {showDialog && (
