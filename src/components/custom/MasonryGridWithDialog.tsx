@@ -2,6 +2,7 @@
 
 import { ImageRow } from "@/src/constants";
 import { MasonryGrid } from "@egjs/react-grid";
+import dayjs from "dayjs";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -18,8 +19,12 @@ export default function Component({ images }: Props) {
     setImage(null);
   };
 
-  const toggleDescription = () => {
-    setShowDescription((prev) => !prev);
+  const handleOpenDescription = () => {
+    setShowDescription(true);
+  };
+
+  const handleCloseDescription = () => {
+    setShowDescription(false);
   };
 
   return (
@@ -47,28 +52,33 @@ export default function Component({ images }: Props) {
       {image && (
         <>
           <div className="absolute top-32 flex flex-col gap-2 text-destructive-foreground z-10">
+            <p>#{image.tags.join(" #")}</p>
             <Image
-              className="w-full max-h-[540px]"
+              className="w-full h-[540px]"
               src={image.image_url}
               alt={image.title}
-              sizes="100vw"
+              sizes="100dvw"
               width={512}
               height={512}
             />
-            <div className="flex w-full justify-between">
-              <p>#{image.tags.join(" #")}</p>
-              <div className="flex">
+            <div className="flex justify-between w-full">
+              <div className="flex justify-self-center">
                 <h2>{image.title}</h2>
                 {showDescription ? (
-                  <ChevronUp className="w-6 h-6" onClick={toggleDescription} />
+                  <ChevronUp
+                    className="w-6 h-6 cursor-pointer"
+                    onClick={handleCloseDescription}
+                  />
                 ) : (
                   <ChevronDown
-                    className="w-6 h-6"
-                    onClick={toggleDescription}
+                    className="w-6 h-6 cursor-pointer"
+                    onClick={handleOpenDescription}
                   />
                 )}
               </div>
-              <p>{image.filmed_at.toString()}</p>
+              <p className="justify-self-end">
+                {dayjs(image.filmed_at).format("YYYY-MM-DD")}
+              </p>
             </div>
             {showDescription && <p>{image.description}</p>}
           </div>
