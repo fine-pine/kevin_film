@@ -1,5 +1,5 @@
 import { createClient } from "@/src/utils/supabase/server";
-import { ImageRow } from "../constants";
+import { ImageRow } from "../../constants";
 
 export default async function Component() {
   const supabase = await createClient();

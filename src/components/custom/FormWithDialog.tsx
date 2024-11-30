@@ -20,7 +20,7 @@ export default function Component() {
       title: "",
       description: "",
       image: null,
-      filmed_at: new Date().toISOString(),
+      filmed_at: new Date(),
     },
   });
 
