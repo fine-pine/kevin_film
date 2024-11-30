@@ -88,7 +88,7 @@ export default function Component() {
 
       {showDialog && (
         <>
-          <div className="flex flex-col gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-sm px-3 py-2 rounded-md z-10">
+          <div className="fixed flex flex-col gap-8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-sm px-3 py-2 rounded-md z-10">
             <p>정말로 제출하시겠습니까?</p>
             <div className="flex gap-4">
               <Button
@@ -104,7 +104,7 @@ export default function Component() {
             </div>
           </div>
           <div
-            className="absolute top-0 left-0 w-screen h-screen bg-black opacity-25"
+            className="fixed top-0 left-0 w-screen h-screen bg-black opacity-25"
             onClick={handleDialogCancel}
           />
         </>
