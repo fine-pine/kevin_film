@@ -67,4 +67,17 @@
   body {
     @apply bg-background text-foreground font-koPubBatang font-light text-neutral-900;
   }
+
+  /* scrollbar styles */
+  *::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-accent-foreground rounded-[1px];
+  }
 }
