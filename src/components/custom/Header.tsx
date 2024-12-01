@@ -9,9 +9,9 @@ export default function Component() {
       </Link>
       <nav>
         <ul className="flex gap-8">
-          {ROUTER.map((route) => (
+          {ROUTER.map((route, idx) => (
             <li>
-              <Link key={route.title} href={route.path}>
+              <Link key={idx} href={route.path}>
                 {route.title}
               </Link>
             </li>
