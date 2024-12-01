@@ -3,7 +3,7 @@ import highlights_1 from "/public/images/highlights_x1 (1).png";
 import highlights_2 from "/public/images/highlights_x1 (2).png";
 import paper_1 from "/public/images/paper_x1 (1).png";
 import paper_2 from "/public/images/paper_x1 (2).png";
-import type { TAGS } from "@/src/constants";
+import type { TAGS } from "@/constants";
 import Link from "next/link";
 
 interface Props {

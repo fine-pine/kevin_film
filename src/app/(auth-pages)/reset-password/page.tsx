@@ -1,9 +1,11 @@
-import { resetPasswordAction } from "@/src/app/actions";
-import { FormMessage, Message } from "@/src/components/form-message";
-import { SubmitButton } from "@/src/components/submit-button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { createClient } from "@/src/utils/supabase/server";
+"use server";
+
+import { resetPasswordAction } from "@/app/actions";
+import { FormMessage, Message } from "@/components/form-message";
+import { SubmitButton } from "@/components/submit-button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function ResetPassword(props: {

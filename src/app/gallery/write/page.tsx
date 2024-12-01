@@ -1,5 +1,7 @@
-import FormWithDialog from "@/src/components/custom/FormWithDialog";
-import { createClient } from "@/src/utils/supabase/server";
+"use server";
+
+import FormWithDialog from "@/components/custom/FormWithDialog";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

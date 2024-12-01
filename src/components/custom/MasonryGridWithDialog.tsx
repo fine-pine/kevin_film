@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageRow } from "@/src/constants";
+import { ImageRow } from "@/constants";
 import { MasonryGrid } from "@egjs/react-grid";
 import Image from "next/image";
 import { useState } from "react";

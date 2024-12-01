@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import "./globals.css";
 import Footer from "../components/custom/Footer";
 import Header from "../components/custom/Header";
+import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`

@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { Textarea } from "@/src/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   ChangeEvent,
   FormEventHandler,
@@ -13,12 +13,12 @@ import {
 } from "react";
 import { SubmitButton } from "../submit-button";
 import { Badge } from "../ui/badge";
-import { createClient } from "@/src/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import dayjs from "dayjs";
-import { ImageForm } from "@/src/constants";
+import { ImageForm } from "@/constants";
 import Uppy from "@uppy/core";
 import Tus from "@uppy/tus";
-import { isValidKey } from "@/src/lib/limits";
+import { isValidKey } from "@/lib/limits";
 import Dashboard from "@uppy/react/lib/Dashboard";
 import "@uppy/core/dist/style.min.css";
 import "@uppy/dashboard/dist/style.min.css";
@@ -52,37 +52,39 @@ export default function Component() {
 
       uppy
         .use(Tus, {
-          endpoint: `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/upload/resumable`,
-          retryDelays: [0, 3000, 5000, 10000, 20000],
+          endpoint: `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/upload/resumable`, // Supabase TUS endpoint
+          retryDelays: [0, 3000, 5000, 10000, 20000], // Retry delays for resumable uploads
           headers: {
-            authorization: `Bearer ${session?.access_token}`,
-            apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            authorization: `Bearer ${session?.access_token}`, // User session access token
+            apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, // API key for Supabase
           },
-          uploadDataDuringCreation: true,
-          removeFingerprintOnSuccess: true,
+          uploadDataDuringCreation: true, // Send metadata with file chunks
+          removeFingerprintOnSuccess: true, // Remove fingerprint after successful upload
           chunkSize: 6 * 1024 * 1024, // Chunk size for TUS uploads (6MB)
           allowedMetaFields: [
             "bucketName",
             "objectName",
             "contentType",
             "cacheControl",
-          ],
+          ], // Metadata fields allowed for the upload
           onError: (error) => console.error("Upload error:", error), // Error handling for uploads
         })
         .on("file-added", (file) => {
           // Attach metadata to each file, including bucket name and content type
+
+          const validFileName = isValidKey(file.name!)
+            ? file.name
+            : `${Buffer.from(file.name?.split(".")[0]!, "utf8").toString("base64")}.${file.name?.split(".")[1]}`;
+
           file.meta = {
             ...file.meta,
-            bucketName,
-            objectName:
-              folderPath +
-              "/" +
-              (isValidKey(file.name!) ? file.name : window.btoa(file.name!)),
-            contentType: file.type,
+            bucketName, // Bucket specified by the user of the hook
+            objectName: `${folderPath}/${validFileName}`, // Use file name as object name
+            contentType: file.type, // Set content type based on file MIME type
           };
         })
-        .on("upload-success", async (file, response) => {
-          // Upload is successful, update the image_url in the form data
+        .on("upload-success", (file, response) => {
+          // Set the image URL to the uploaded file's URL
           setImageUrl(
             `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/${bucketName}/${folderPath}/${file!.name}`
           );
@@ -90,7 +92,7 @@ export default function Component() {
     };
 
     initializeUppy();
-  }, []);
+  }, [uppy, bucketName]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -141,14 +143,21 @@ export default function Component() {
     setShowDialog(true);
   };
 
-  const handleDialogConfirm = () => {
-    supabase.from("images").insert(formData);
+  const handleDialogConfirm = async () => {
+    const { error } = await supabase.from("images").insert(formData);
+    if (error) {
+      console.error(error.code + " " + error.message);
+      return;
+    }
+
     setTag("");
+    setError(null);
+    uppy.clear();
     setFormData(defaultValues);
     setShowDialog(false);
   };
 
-  const handleDialogCancel: MouseEventHandler = (e) => {
+  const handleDialogCancel = () => {
     setShowDialog(false);
   };
 
@@ -234,7 +243,7 @@ export default function Component() {
 
       {showDialog && (
         <>
-          <div className="fixed flex flex-col gap-8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-sm px-3 py-2 rounded-md z-10">
+          <div className="fixed flex flex-col gap-8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-sm px-3 py-2 rounded-md z-50">
             <p>Are you sure you want to submit?</p>
             <div className="flex gap-4">
               <Button
@@ -250,7 +259,7 @@ export default function Component() {
             </div>
           </div>
           <div
-            className="fixed top-0 left-0 w-screen h-screen bg-black opacity-25"
+            className="fixed top-0 left-0 w-screen h-screen bg-black opacity-25 z-40"
             onClick={handleDialogCancel}
           />
         </>

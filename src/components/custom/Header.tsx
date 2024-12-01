@@ -1,4 +1,4 @@
-import { ROUTER } from "@/src/constants";
+import { ROUTER } from "@/constants";
 import Link from "next/link";
 
 export default async function Component() {
@@ -8,10 +8,10 @@ export default async function Component() {
         Kevin Film
       </Link>
       <nav>
-        <ul key={0} className="flex gap-8">
+        <ul className="flex gap-8">
           {ROUTER.map((route, idx) => (
             <li>
-              <Link key={idx} href={route.path}>
+              <Link key={route.id} href={route.path}>
                 {route.title}
               </Link>
             </li>

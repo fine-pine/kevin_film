@@ -1,3 +1,5 @@
+"use server";
+
 import Image from "next/image";
 import ImageCard from "../components/custom/ImageCard";
 import { ImageRow, TAGS } from "../constants";
