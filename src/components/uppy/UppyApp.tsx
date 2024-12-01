@@ -7,16 +7,21 @@ import Uppy from "@uppy/core";
 import { useEffect, useState } from "react";
 import Tus from "@uppy/tus";
 import { createClient } from "@/src/utils/supabase/client";
-import { ImageForm } from "../custom/FormWithDialog";
-import { UseFormSetValue } from "react-hook-form";
+import { isValidKey } from "@/src/lib/limits";
 
 interface Props {
   bucketName: string;
   folderPath?: string;
-  setValue: UseFormSetValue<ImageForm>;
+  setImageUrl: (url: string) => void;
+  className?: string;
 }
 
-export default function Component({ bucketName, folderPath, setValue }: Props) {
+export default function Component({
+  bucketName,
+  folderPath,
+  setImageUrl,
+  className,
+}: Props) {
   const supabase = createClient();
   const [uppy] = useState(
     () => new Uppy({ restrictions: { maxNumberOfFiles: 1 } })
@@ -52,14 +57,16 @@ export default function Component({ bucketName, folderPath, setValue }: Props) {
           file.meta = {
             ...file.meta,
             bucketName,
-            objectName: folderPath + "/" + file.name,
+            objectName:
+              folderPath +
+              "/" +
+              (isValidKey(file.name!) ? file.name : window.btoa(file.name!)),
             contentType: file.type,
           };
         })
         .on("upload-success", async (file, response) => {
-          // Handle successful upload
-          setValue(
-            "image_url",
+          // Upload is successful, update the image_url in the form data
+          setImageUrl(
             `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/${bucketName}/${folderPath}/${file!.name}`
           );
         });
@@ -68,5 +75,5 @@ export default function Component({ bucketName, folderPath, setValue }: Props) {
     initializeUppy();
   }, []);
 
-  return <Dashboard uppy={uppy} showProgressDetails />;
+  return <Dashboard className={className} uppy={uppy} showProgressDetails />;
 }
