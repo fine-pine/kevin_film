@@ -8,7 +8,7 @@ export default async function Component() {
         Kevin Film
       </Link>
       <nav>
-        <ul className="flex gap-8">
+        <ul key={0} className="flex gap-8">
           {ROUTER.map((route, idx) => (
             <li>
               <Link key={idx} href={route.path}>
