@@ -1,4 +1,4 @@
-import business_card from "@/public/images/business_card_x4.png";
+import business_card from "../../../public/images/business_card_x4.png";
 import Image from "next/image";
 
 export default function Page() {

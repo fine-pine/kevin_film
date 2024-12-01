@@ -7,16 +7,12 @@ export default async function Component() {
       <Link className="text-2xl font-medium" href="/">
         Kevin Film
       </Link>
-      <nav>
-        <ul className="flex gap-8">
-          {ROUTER.map((route, idx) => (
-            <li>
-              <Link key={route.id} href={route.path}>
-                {route.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <nav className="flex gap-8">
+        {ROUTER.map((route) => (
+          <Link key={route.id} href={route.path}>
+            {route.title}
+          </Link>
+        ))}
       </nav>
     </header>
   );

@@ -4,8 +4,8 @@ import Image from "next/image";
 import ImageCard from "../components/custom/ImageCard";
 import { ImageRow, TAGS } from "../constants";
 import { createClient } from "../utils/supabase/server";
-import banner_image from "@/public/images/person.jpg";
-import placeholder_image from "@/public/images/image_placeholder.svg";
+import banner_image from "../../public/images/person.jpg";
+import placeholder_image from "../../public/images/image_placeholder.svg";
 
 export default async function Home() {
   const supabase = await createClient();
