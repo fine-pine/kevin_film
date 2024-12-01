@@ -15,14 +15,7 @@ import UppyApp from "../uppy/UppyApp";
 import { Badge } from "../ui/badge";
 import { createClient } from "@/src/utils/supabase/client";
 import dayjs from "dayjs";
-
-export interface ImageForm {
-  image_url: string;
-  title: string;
-  description: string;
-  tags: string[];
-  filmed_at: Date | null;
-}
+import { ImageForm } from "@/src/constants";
 
 export default function Component() {
   const defaultValues: ImageForm = {

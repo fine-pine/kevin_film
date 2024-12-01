@@ -30,3 +30,11 @@ export interface ImageRow {
   image_url: string;
   filmed_at: Date;
 }
+
+export interface ImageForm {
+  image_url: string;
+  title: string;
+  description: string;
+  tags: string[];
+  filmed_at: Date | null;
+}
