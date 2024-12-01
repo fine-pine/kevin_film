@@ -1,7 +1,7 @@
 import { ROUTER } from "@/src/constants";
 import Link from "next/link";
 
-export default function Component() {
+export default async function Component() {
   return (
     <header className="w-full pt-16 flex justify-between items-end">
       <Link className="text-2xl font-medium" href="/">
