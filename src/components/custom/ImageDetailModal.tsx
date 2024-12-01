@@ -24,7 +24,7 @@ export default function Component({ image, handleClose }: Props) {
 
   return (
     <>
-      <div className="absolute top-24 flex flex-col gap-2 mb-24 text-destructive-foreground z-10">
+      <div className="absolute top-24 flex flex-col gap-2 pb-24 text-destructive-foreground z-10">
         <p>#{image.tags.join(" #")}</p>
         <Image
           className="w-full h-[700px] object-contain"

@@ -2,7 +2,6 @@ import MasonryGridWrapper from "@/src/components/custom/MasonryGridWithDialog";
 import { createClient } from "@/src/utils/supabase/server";
 import { TAGS } from "@/src/constants";
 import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
 
 interface Props {
   searchParams: Promise<{

@@ -180,7 +180,7 @@ export default function Component() {
       {showDialog && (
         <>
           <div className="fixed flex flex-col gap-8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-sm px-3 py-2 rounded-md z-10">
-            <p></p>
+            <p>Are you sure you want to submit?</p>
             <div className="flex gap-4">
               <Button
                 className="flex-1"
