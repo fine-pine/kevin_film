@@ -3,8 +3,8 @@
 import { ImageRow } from "@/src/constants";
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import dayjs from "dayjs";
+import { TriangleDownIcon, TriangleUpIcon } from "@radix-ui/react-icons";
 
 interface Props {
   image: ImageRow;
@@ -38,12 +38,12 @@ export default function Component({ image, handleClose }: Props) {
           <div className="flex justify-self-center">
             <h2>{image.title}</h2>
             {showDescription ? (
-              <ChevronUp
+              <TriangleUpIcon
                 className="w-6 h-6 cursor-pointer"
                 onClick={handleCloseDescription}
               />
             ) : (
-              <ChevronDown
+              <TriangleDownIcon
                 className="w-6 h-6 cursor-pointer"
                 onClick={handleOpenDescription}
               />
