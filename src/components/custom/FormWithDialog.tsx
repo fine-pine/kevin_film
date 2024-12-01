@@ -117,7 +117,7 @@ export default function Component() {
           <UppyApp
             className="mb-3"
             bucketName="finepine"
-            folderPath="kevin_flim_images"
+            folderPath="kevin_film_images"
             setImageUrl={setImageUrl}
           />
 
